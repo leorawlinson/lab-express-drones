@@ -20,11 +20,21 @@ router.get("/", (req, res, next) => {
 router.get("/create", (req, res, next) => {
   // Iteration #3: Add a new drone
   // ... your code here
+  res.render("drones/create-form");
 });
 
 router.post("/create", (req, res, next) => {
   // Iteration #3: Add a new drone
   // ... your code here
+  const { name, propellers, maxSpeed } = req.body;
+  Drone.create({ name, propellers, maxSpeed })
+    .then((drone) => {
+      console.log("Here is your new drone:", drone);
+      res.redirect("/drones");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 router.get("/drones/:id/edit", (req, res, next) => {
